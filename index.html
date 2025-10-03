@@ -29,11 +29,9 @@
   .tiles { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-bottom:40px; }
   .tile {
     border-radius:12px;
-    min-width:160px; /* чтоб не схлопывались слишком */
-    width:180px;
-    min-height:100px;
-    padding:12px; /* добавим паддинг */
-    
+    min-width:160px; width:180px;
+    min-height:100px; padding:12px;
+
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -43,9 +41,9 @@
     font-weight:bold;
     cursor:pointer;
     font-size:1em;
-    line-height:1.3; /* чтобы текст не слипался */
-    word-wrap:break-word; /* перенос длинных слов */
-    white-space:normal;   /* чтобы текст не вылазил */
+    line-height:1.3;
+    word-wrap:break-word;
+    white-space:normal;
 
     box-shadow:0 4px 12px rgba(0,0,0,0.1);
     background:white;
@@ -78,18 +76,23 @@
   footer a { color:#00bfff; text-decoration:none; }
   footer a:hover { text-decoration:underline; }
 
+  .tile.highlight {
+    outline: 3px solid #00bfff;
+    outline-offset: 3px;
+  }
+
   @media(max-width:600px){
   .tiles, .panel, .centers {
     flex-direction:column;
     align-items:center;
   }
   .tile {
-    width:90%;   /* почти на всю ширину экрана */
+    width:90%;
     max-width:400px;
-    min-height:auto; /* пусть подстраивается */
+    min-height:auto;
     height:auto;
     padding:16px;
-    font-size:1.1em; /* на мобилке можно чуть крупнее текст */
+    font-size:1.1em;
   }
   }
 </style>
@@ -100,15 +103,15 @@
 <p>Общие ресурсы доступны сразу. Выберите радиоцентр, чтобы увидеть уникальные кнопки.</p>
 
 <div class="tiles">
-  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-7336166','_blank')">
+  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-7336166','_blank')" data-hash="правила">
     <svg viewBox="0 0 24 24"><path d="M12 2L1 7l11 5 9-4.09V17h2V7L12 2z"/></svg>
     Правила
   </div>
-  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-9344452','_blank')">
+  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-9344452','_blank')" data-hash="punto-switcher">
     <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
     Punto Switcher
   </div>
-  <div class="tile gradient3" onclick="window.open('https://djoniohanter.com/smi.php','_blank')">
+  <div class="tile gradient3" onclick="window.open('https://djoniohanter.com/smi.php','_blank')" data-hash="логи-объявлений">
     <svg viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm0 4h12v2H3V7zm0 4h18v2H3v-2zm0 4h12v2H3v-2zm0 4h18v2H3v-2z"/></svg>
     Логи объявлений
   </div>
@@ -121,21 +124,21 @@
 </div>
 
 <div id="lvfm" class="panel">
-  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1199578-lvfm-система-повышения/','_blank')">Повышения</div>
-  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1199581-lvfm-премиальная-система/','_blank')">Премии</div>
-  <div class="tile gradient3" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1199616-lvfm-выговоры-и-черный-список/','_blank')">Наказания</div>
+  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1199578-lvfm-система-повышения/','_blank')" data-hash="lvfm-повышения">Повышения</div>
+  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1199581-lvfm-премиальная-система/','_blank')" data-hash="lvfm-премии">Премии</div>
+  <div class="tile gradient3" onclick="window.open('https://forum.sa-mп.ru/index.php?/topic/1199616-lvfm-выговоры-и-черный-список/','_blank')" data-hash="lvfm-наказания">Наказания</div>
 </div>
 
 <div id="lsfm" class="panel">
-  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201622-lsfm-система-повышения📈/','_blank')">Повышения</div>
-  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201606-lsfm-премии💰/','_blank')">Премии</div>
-  <div class="tile gradient3" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201605-lsfm-выговоры-и-чс📢/','_blank')">Наказания</div>
+  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201622-lsfm-система-повышения📈/','_blank')" data-hash="lsfm-повышения">Повышения</div>
+  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201606-lsfm-премии💰/','_blank')" data-hash="lsfm-премии">Премии</div>
+  <div class="tile gradient3" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201605-lsfm-выговоры-и-чс📢/','_blank')" data-hash="lsfm-наказания">Наказания</div>
 </div>
 
 <div id="sffm" class="panel">
-  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201252-sffm-система-повышения','_blank')">Повышения</div>
-  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201256-sffm-премии-для-сотрудников','_blank')">Премии</div>
-  <div class="tile gradient3" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201259-sffm-выговоры-и-чёрный-список','_blank')">Наказания</div>
+  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201252-sffm-система-повышения','_blank')" data-hash="sffm-повышения">Повышения</div>
+  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201256-sffm-премии-для-сотрудников','_blank')" data-hash="sffm-премии">Премии</div>
+  <div class="tile gradient3" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201259-sffm-выговоры-и-чёрный-список','_blank')" data-hash="sffm-наказания">Наказания</div>
 </div>
 
 <footer>
@@ -148,16 +151,14 @@
   const panels = document.querySelectorAll('.panel');
   const tiles = document.querySelectorAll('.tile');
 
-  // Анимация появления плиток
   function showTiles(parent) {
     const tileList = parent ? parent.querySelectorAll('.tile') : document.querySelectorAll('.tiles .tile');
     tileList.forEach((tile,i) => {
       setTimeout(()=>tile.classList.add('show'), i*100);
     });
   }
-  showTiles(); // первые общие плитки
+  showTiles();
 
-  // Переключение радиоцентров с анимацией
   centerButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       centerButtons.forEach(b => b.classList.remove('active'));
@@ -168,6 +169,29 @@
       panel.classList.add('active');
       panel.querySelectorAll('.tile').forEach(t => t.classList.remove('show'));
       setTimeout(()=>showTiles(panel), 50);
+    });
+  });
+
+  // Хеш-система для подсветки и открытия нужной панели
+  document.addEventListener("DOMContentLoaded", () => {
+    const hash = decodeURIComponent(window.location.hash.substring(1));
+    if (!hash) return;
+
+    tiles.forEach(tile => {
+      const tileHash = tile.dataset.hash;
+      if (tileHash && tileHash.toLowerCase() === hash.toLowerCase()) {
+        // открываем панель
+        const parentPanel = tile.closest('.panel');
+        if (parentPanel) {
+          const centerId = parentPanel.id;
+          const btn = document.querySelector(`.center-btn[data-center="${centerId}"]`);
+          if (btn) btn.click();
+        }
+
+        // подсвечиваем плитку
+        tile.classList.add('highlight');
+        setTimeout(()=>tile.classList.remove('highlight'), 2000);
+      }
     });
   });
 </script>
