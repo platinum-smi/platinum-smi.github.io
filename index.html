@@ -29,14 +29,14 @@
   .tiles { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-bottom:40px; }
   .tile {
     border-radius:12px;
-    min-width:160px; width:180px;
-    min-height:100px; padding:12px;
-
+    min-width:160px;
+    width:180px;
+    min-height:100px;
+    padding:12px;
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
-
     text-align:center;
     font-weight:bold;
     cursor:pointer;
@@ -44,11 +44,9 @@
     line-height:1.3;
     word-wrap:break-word;
     white-space:normal;
-
     box-shadow:0 4px 12px rgba(0,0,0,0.1);
     background:white;
     color:#222;
-
     opacity:0;
     transform: translateY(20px);
     transition:0.5s all;
@@ -76,24 +74,21 @@
   footer a { color:#00bfff; text-decoration:none; }
   footer a:hover { text-decoration:underline; }
 
-  .tile.highlight {
-    outline: 3px solid #00bfff;
-    outline-offset: 3px;
-  }
+  .highlight { box-shadow: 0 0 15px 4px #00bfff inset !important; }
 
   @media(max-width:600px){
-  .tiles, .panel, .centers {
-    flex-direction:column;
-    align-items:center;
-  }
-  .tile {
-    width:90%;
-    max-width:400px;
-    min-height:auto;
-    height:auto;
-    padding:16px;
-    font-size:1.1em;
-  }
+    .tiles, .panel, .centers {
+      flex-direction:column;
+      align-items:center;
+    }
+    .tile {
+      width:90%;
+      max-width:400px;
+      min-height:auto;
+      height:auto;
+      padding:16px;
+      font-size:1.1em;
+    }
   }
 </style>
 </head>
@@ -103,9 +98,18 @@
 <p>Общие ресурсы доступны сразу. Выберите радиоцентр, чтобы увидеть уникальные кнопки.</p>
 
 <div class="tiles">
-  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-7336166','_blank')" data-hash="правила">Правила</div>
-  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-9344452','_blank')" data-hash="punto">Punto Switcher</div>
-  <div class="tile gradient3" onclick="window.open('https://djoniohanter.com/smi.php','_blank')" data-hash="логи">Логи объявлений</div>
+  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-7336166','_blank')" data-href="https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-7336166" data-hash="правила">
+    <svg viewBox="0 0 24 24"><path d="M12 2L1 7l11 5 9-4.09V17h2V7L12 2z"/></svg>
+    Правила
+  </div>
+  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-9344452','_blank')" data-href="https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-9344452" data-hash="punto">
+    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
+    Punto Switcher
+  </div>
+  <div class="tile gradient3" onclick="window.open('https://djoniohanter.com/smi.php','_blank')" data-href="https://djoniohanter.com/smi.php" data-hash="логи">
+    <svg viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm0 4h12v2H3V7zm0 4h18v2H3v-2zm0 4h12v2H3v-2zm0 4h18v2H3v-2z"/></svg>
+    Логи объявлений
+  </div>
 </div>
 
 <div class="centers">
@@ -115,21 +119,21 @@
 </div>
 
 <div id="lvfm" class="panel">
-  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1199578-lvfm-система-повышения/','_blank')" data-hash="lvfm-повышения">Повышения</div>
-  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1199581-lvfm-премиальная-система/','_blank')" data-hash="lvfm-премии">Премии</div>
-  <div class="tile gradient3" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1199616-lvfm-выговоры-и-черный-список/','_blank')" data-hash="lvfm-наказания">Наказания</div>
+  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1199578-lvfm-система-повышения/','_blank')" data-href="https://forum.sa-mp.ru/index.php?/topic/1199578-lvfm-система-повышения/" data-hash="lvfm-повышения">Повышения</div>
+  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1199581-lvfm-премиальная-система/','_blank')" data-href="https://forum.sa-mp.ru/index.php?/topic/1199581-lvfm-премиальная-система/" data-hash="lvfm-премии">Премии</div>
+  <div class="tile gradient3" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1199616-lvfm-выговоры-и-черный-список/','_blank')" data-href="https://forum.sa-mp.ru/index.php?/topic/1199616-lvfm-выговоры-и-черный-список/" data-hash="lvfm-наказания">Наказания</div>
 </div>
 
 <div id="lsfm" class="panel">
-  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201622-lsfm-система-повышения📈/','_blank')" data-hash="lsfm-повышения">Повышения</div>
-  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201606-lsfm-премии💰/','_blank')" data-hash="lsfm-премии">Премии</div>
-  <div class="tile gradient3" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201605-lsfm-выговоры-и-чс📢/','_blank')" data-hash="lsfm-наказания">Наказания</div>
+  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201622-lsfm-система-повышения📈/','_blank')" data-href="https://forum.sa-mp.ru/index.php?/topic/1201622-lsfm-система-повышения📈/" data-hash="lsfm-повышения">Повышения</div>
+  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201606-lsfm-премии💰/','_blank')" data-href="https://forum.sa-mp.ru/index.php?/topic/1201606-lsfm-премии💰/" data-hash="lsfm-премии">Премии</div>
+  <div class="tile gradient3" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201605-lsfm-выговоры-и-чс📢/','_blank')" data-href="https://forum.sa-mp.ru/index.php?/topic/1201605-lsfm-выговоры-и-чс📢/" data-hash="lsfm-наказания">Наказания</div>
 </div>
 
 <div id="sffm" class="panel">
-  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201252-sffm-система-повышения','_blank')" data-hash="sffm-повышения">Повышения</div>
-  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201256-sffm-премии-для-сотрудников','_blank')" data-hash="sffm-премии">Премии</div>
-  <div class="tile gradient3" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201259-sffm-выговоры-и-чёрный-список','_blank')" data-hash="sffm-наказания">Наказания</div>
+  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201252-sffm-система-повышения','_blank')" data-href="https://forum.sa-mp.ru/index.php?/topic/1201252-sffm-система-повышения" data-hash="sffm-повышения">Повышения</div>
+  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201256-sffm-премии-для-сотрудников','_blank')" data-href="https://forum.sa-mp.ru/index.php?/topic/1201256-sffm-премии-для-сотрудников" data-hash="sffm-премии">Премии</div>
+  <div class="tile gradient3" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201259-sffm-выговоры-и-чёрный-список','_blank')" data-href="https://forum.sa-mp.ru/index.php?/topic/1201259-sffm-выговоры-и-чёрный-список" data-hash="sffm-наказания">Наказания</div>
 </div>
 
 <footer>
@@ -142,14 +146,16 @@
   const panels = document.querySelectorAll('.panel');
   const tiles = document.querySelectorAll('.tile');
 
+  // Анимация появления плиток
   function showTiles(parent) {
     const tileList = parent ? parent.querySelectorAll('.tile') : document.querySelectorAll('.tiles .tile');
     tileList.forEach((tile,i) => {
       setTimeout(()=>tile.classList.add('show'), i*100);
     });
   }
-  showTiles();
+  showTiles(); // первые общие плитки
 
+  // Переключение радиоцентров с анимацией
   centerButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       centerButtons.forEach(b => b.classList.remove('active'));
@@ -163,27 +169,66 @@
     });
   });
 
-  // Хеш-система для подсветки плиток
-  document.addEventListener("DOMContentLoaded", () => {
-    const hash = decodeURIComponent(window.location.hash.substring(1));
-    if (!hash) return;
+  // --- Обработка хеша: подсветка или редирект при ключе ?go или ?redirect=1 ---
+  (function(){
+    function extractHashAndParams() {
+      const raw = decodeURIComponent(window.location.hash.substring(1) || '');
+      if (!raw) return { id: '', params: '' };
+      const [idPart, paramPart] = raw.split('?', 2);
+      return { id: idPart || '', params: paramPart || '' };
+    }
 
-    tiles.forEach(tile => {
-      const tileHash = tile.dataset.hash;
-      if (!tileHash) return;
+    function parseParams(paramString) {
+      const params = {};
+      if (!paramString) return params;
+      paramString.split('&').forEach(pair => {
+        const [k, v=''] = pair.split('=');
+        params[k.toLowerCase()] = v;
+      });
+      return params;
+    }
 
-      if (tileHash.toLowerCase() === hash.toLowerCase()) {
-        const parentPanel = tile.closest('.panel');
-        if (parentPanel) {
-          const centerId = parentPanel.id;
-          const btn = document.querySelector(`.center-btn[data-center="${centerId}"]`);
-          if (btn) btn.click();
-        }
-        tile.classList.add('highlight');
-        setTimeout(()=>tile.classList.remove('highlight'), 2000);
+    function getTileUrl(tile) {
+      const dh = tile.getAttribute('data-href');
+      if (dh) return dh;
+      const onclick = tile.getAttribute('onclick') || '';
+      const m = onclick.match(/window\.open\(\s*['"]([^'"]+)['"]/i);
+      if (m && m[1]) return m[1];
+      return null;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const { id, params } = extractHashAndParams();
+      if (!id) return;
+
+      const parsed = parseParams(params);
+      const shouldRedirect = ('go' in parsed);
+
+      const tilesAll = Array.from(document.querySelectorAll('.tile'));
+      const targetTile = tilesAll.find(t => {
+        const th = (t.dataset.hash || '').toString().toLowerCase();
+        return th === id.toLowerCase();
+      });
+
+      if (!targetTile) return;
+
+      const parentPanel = targetTile.closest('.panel');
+      if (parentPanel) {
+        const centerId = parentPanel.id;
+        const btn = document.querySelector(`.center-btn[data-center="${centerId}"]`);
+        if (btn) btn.click();
       }
+
+      if (shouldRedirect) {
+        const url = getTileUrl(targetTile);
+        if (url) setTimeout(()=>{ window.location.href = url; }, 150);
+        return;
+      }
+
+      targetTile.classList.add('highlight');
+      setTimeout(()=> targetTile.classList.remove('highlight'), 5000);
     });
-  });
+  })();
 </script>
 
 </body>
