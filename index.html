@@ -103,18 +103,9 @@
 <p>Общие ресурсы доступны сразу. Выберите радиоцентр, чтобы увидеть уникальные кнопки.</p>
 
 <div class="tiles">
-  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-7336166','_blank')" data-hash="правила">
-    <svg viewBox="0 0 24 24"><path d="M12 2L1 7l11 5 9-4.09V17h2V7L12 2z"/></svg>
-    Правила
-  </div>
-  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-9344452','_blank')" data-hash="punto-switcher">
-    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
-    Punto Switcher
-  </div>
-  <div class="tile gradient3" onclick="window.open('https://djoniohanter.com/smi.php','_blank')" data-hash="логи-объявлений">
-    <svg viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm0 4h12v2H3V7zm0 4h18v2H3v-2zm0 4h12v2H3v-2zm0 4h18v2H3v-2z"/></svg>
-    Логи объявлений
-  </div>
+  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-7336166','_blank')" data-hash="правила">Правила</div>
+  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-9344452','_blank')" data-hash="punto">Punto Switcher</div>
+  <div class="tile gradient3" onclick="window.open('https://djoniohanter.com/smi.php','_blank')" data-hash="логи">Логи объявлений</div>
 </div>
 
 <div class="centers">
@@ -126,7 +117,7 @@
 <div id="lvfm" class="panel">
   <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1199578-lvfm-система-повышения/','_blank')" data-hash="lvfm-повышения">Повышения</div>
   <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1199581-lvfm-премиальная-система/','_blank')" data-hash="lvfm-премии">Премии</div>
-  <div class="tile gradient3" onclick="window.open('https://forum.sa-mп.ru/index.php?/topic/1199616-lvfm-выговоры-и-черный-список/','_blank')" data-hash="lvfm-наказания">Наказания</div>
+  <div class="tile gradient3" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1199616-lvfm-выговоры-и-черный-список/','_blank')" data-hash="lvfm-наказания">Наказания</div>
 </div>
 
 <div id="lsfm" class="panel">
@@ -172,23 +163,22 @@
     });
   });
 
-  // Хеш-система для подсветки и открытия нужной панели
+  // Хеш-система для подсветки плиток
   document.addEventListener("DOMContentLoaded", () => {
     const hash = decodeURIComponent(window.location.hash.substring(1));
     if (!hash) return;
 
     tiles.forEach(tile => {
       const tileHash = tile.dataset.hash;
-      if (tileHash && tileHash.toLowerCase() === hash.toLowerCase()) {
-        // открываем панель
+      if (!tileHash) return;
+
+      if (tileHash.toLowerCase() === hash.toLowerCase()) {
         const parentPanel = tile.closest('.panel');
         if (parentPanel) {
           const centerId = parentPanel.id;
           const btn = document.querySelector(`.center-btn[data-center="${centerId}"]`);
           if (btn) btn.click();
         }
-
-        // подсвечиваем плитку
         tile.classList.add('highlight');
         setTimeout(()=>tile.classList.remove('highlight'), 2000);
       }
