@@ -28,11 +28,32 @@
 
   .tiles { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-bottom:40px; }
   .tile {
-    border-radius:12px; width:180px; height:120px;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    text-align:center; font-weight:bold; cursor:pointer; font-size:1em;
-    box-shadow:0 4px 12px rgba(0,0,0,0.1); background:white; color:#222;
-    opacity:0; transform: translateY(20px); transition:0.5s all;
+    border-radius:12px;
+    min-width:160px; /* чтоб не схлопывались слишком */
+    width:180px;
+    min-height:100px;
+    padding:12px; /* добавим паддинг */
+    
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:1em;
+    line-height:1.3; /* чтобы текст не слипался */
+    word-wrap:break-word; /* перенос длинных слов */
+    white-space:normal;   /* чтобы текст не вылазил */
+
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    background:white;
+    color:#222;
+
+    opacity:0;
+    transform: translateY(20px);
+    transition:0.5s all;
   }
   .tile.show { opacity:1; transform: translateY(0);}
   .tile:hover { transform:translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.2);}
@@ -58,8 +79,18 @@
   footer a:hover { text-decoration:underline; }
 
   @media(max-width:600px){
-    .tiles, .panel, .centers { flex-direction:column; align-items:center; }
-    .tile { width:80%; height:100px; }
+  .tiles, .panel, .centers {
+    flex-direction:column;
+    align-items:center;
+  }
+  .tile {
+    width:90%;   /* почти на всю ширину экрана */
+    max-width:400px;
+    min-height:auto; /* пусть подстраивается */
+    height:auto;
+    padding:16px;
+    font-size:1.1em; /* на мобилке можно чуть крупнее текст */
+  }
   }
 </style>
 </head>
@@ -96,15 +127,15 @@
 </div>
 
 <div id="lsfm" class="panel">
-  <div class="tile gradient1" onclick="window.open('#','_blank')">Повышения</div>
-  <div class="tile gradient2" onclick="window.open('#','_blank')">Премии</div>
-  <div class="tile gradient3" onclick="window.open('#','_blank')">Наказания</div>
+  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201622-lsfm-система-повышения📈/','_blank')">Повышения</div>
+  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201606-lsfm-премии💰/','_blank')">Премии</div>
+  <div class="tile gradient3" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201605-lsfm-выговоры-и-чс📢/','_blank')">Наказания</div>
 </div>
 
 <div id="sffm" class="panel">
-  <div class="tile gradient1" onclick="window.open('#','_blank')">Повышения</div>
-  <div class="tile gradient2" onclick="window.open('#','_blank')">Премии</div>
-  <div class="tile gradient3" onclick="window.open('#','_blank')">Наказания</div>
+  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201252-sffm-система-повышения','_blank')">Повышения</div>
+  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201256-sffm-премии-для-сотрудников','_blank')">Премии</div>
+  <div class="tile gradient3" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201259-sffm-выговоры-и-чёрный-список','_blank')">Наказания</div>
 </div>
 
 <footer>
