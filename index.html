@@ -1,164 +1,176 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>СМИ Навигатор | Absolute RP Platinum</title>
-  <style>
-    :root {
-      --bg-light: #f9f9f9;
-      --text-light: #222;
-      --card-light: #fff;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>СМИ Навигатор</title>
+<style>
+  body {
+    margin:0; font-family:"Century Gothic", sans-serif; display:flex; flex-direction:column; align-items:center; min-height:100vh;
+    background:#f5f5f5; color:#222; transition: background 0.3s, color 0.3s;
+  }
 
-      --bg-dark: #1a1a1a;
-      --text-dark: #eee;
-      --card-dark: #2a2a2a;
+  h1 {
+    margin-top:50px; font-size:2.5em;
+    background: linear-gradient(90deg,#00bfff,#9b59b6); -webkit-background-clip: text; color: transparent; text-align:center;
+  }
+  p {
+    color:#555; margin:15px 0 40px 0; text-align:center; max-width:600px; font-size:1.1em;
+  }
 
-      --accent: #4a90e2;
-    }
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      background: var(--bg-light);
-      color: var(--text-light);
-      transition: all 0.3s ease;
-    }
-    body.dark {
-      background: var(--bg-dark);
-      color: var(--text-dark);
-    }
-    header {
-      text-align: center;
-      padding: 2rem 1rem 1rem;
-    }
-    h1 {
-      margin: 0;
-      font-size: 2rem;
-      font-weight: 700;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1rem;
-      padding: 1rem;
-      max-width: 900px;
-      margin: 0 auto;
-      width: 100%;
-    }
-    .card {
-      background: var(--card-light);
-      padding: 1.2rem;
-      border-radius: 1rem;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      transition: transform 0.2s ease, background 0.3s ease;
-    }
-    body.dark .card {
-      background: var(--card-dark);
-    }
-    .card:hover {
-      transform: translateY(-3px);
-    }
-    .card h2 {
-      margin-top: 0;
-      font-size: 1.2rem;
-    }
-    .card a {
-      display: block;
-      margin: 0.5rem 0;
-      padding: 0.7rem;
-      background: var(--accent);
-      color: white;
-      text-decoration: none;
-      border-radius: 0.5rem;
-      transition: background 0.2s ease;
-    }
-    .card a:hover {
-      background: #357ab8;
-    }
-    footer {
-      margin-top: auto;
-      padding: 1rem;
-      text-align: center;
-      font-size: 0.9rem;
-      opacity: 0.8;
-    }
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-  </style>
+  @media (prefers-color-scheme: dark) {
+    body { background:#111; color:#f0f0f0; }
+    .tile { background:#222; color:#f0f0f0; box-shadow:0 4px 12px rgba(0,0,0,0.3);}
+    footer { background:#111; color:#888; }
+    .center-btn { background:#222; color:#f0f0f0;}
+    .center-btn.active, .center-btn:hover { background:#00bfff; color:#111;}
+  }
+
+  .tiles { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-bottom:40px; }
+  .tile {
+    border-radius:12px;
+    min-width:160px; /* чтоб не схлопывались слишком */
+    width:180px;
+    min-height:100px;
+    padding:12px; /* добавим паддинг */
+    
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:1em;
+    line-height:1.3; /* чтобы текст не слипался */
+    word-wrap:break-word; /* перенос длинных слов */
+    white-space:normal;   /* чтобы текст не вылазил */
+
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    background:white;
+    color:#222;
+
+    opacity:0;
+    transform: translateY(20px);
+    transition:0.5s all;
+  }
+  .tile.show { opacity:1; transform: translateY(0);}
+  .tile:hover { transform:translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.2);}
+  .gradient1 { background: linear-gradient(135deg,#00bfff,#9b59b6); color:#fff; }
+  .gradient2 { background: linear-gradient(135deg,#ff6b6b,#f7d794); color:#fff; }
+  .gradient3 { background: linear-gradient(135deg,#2ed573,#1e90ff); color:#fff; }
+
+  .tile svg { width:32px; height:32px; margin-bottom:8px; fill:currentColor; }
+
+  .centers { display:flex; gap:15px; flex-wrap:wrap; justify-content:center; margin-bottom:30px; }
+  .center-btn {
+    padding:12px 25px; background:#eee; border:none; border-radius:8px; color:#222;
+    font-weight:bold; cursor:pointer; transition:0.3s, transform 0.2s;
+  }
+  .center-btn:hover, .center-btn.active { background:#00bfff; color:#fff; transform:scale(1.05); }
+
+  .panel { display:none; flex-wrap:wrap; gap:20px; justify-content:center; margin-bottom:50px; }
+  .panel.active { display:flex; }
+
+  footer { margin-top:auto; padding:20px; text-align:center; width:100%; }
+  footer div { margin-top:5px; font-size:0.9em; }
+  footer a { color:#00bfff; text-decoration:none; }
+  footer a:hover { text-decoration:underline; }
+
+  @media(max-width:600px){
+  .tiles, .panel, .centers {
+    flex-direction:column;
+    align-items:center;
+  }
+  .tile {
+    width:90%;   /* почти на всю ширину экрана */
+    max-width:400px;
+    min-height:auto; /* пусть подстраивается */
+    height:auto;
+    padding:16px;
+    font-size:1.1em; /* на мобилке можно чуть крупнее текст */
+  }
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1>СМИ Навигатор</h1>
-    <p>Absolute RP Platinum</p>
-  </header>
 
-  <main class="grid">
-    <!-- Общие ссылки -->
-    <div class="card">
-      <h2>Общие</h2>
-      <a id="правила" href="https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-7336166" target="_blank">📘 Правила</a>
-      <a id="punto" href="https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-9344452" target="_blank">⌨ Punto Switcher</a>
-      <a id="логи" href="https://djoniohanter.com/smi.php" target="_blank">📂 Логи объявлений</a>
-    </div>
+<h1>СМИ Навигатор</h1>
+<p>Общие ресурсы доступны сразу. Выберите радиоцентр, чтобы увидеть уникальные кнопки.</p>
 
-    <!-- LVFM -->
-    <div class="card">
-      <h2>LVFM</h2>
-      <a id="lvfm-повышения" href="https://forum.sa-mp.ru/index.php?/topic/1199578-lvfm-система-повышения/" target="_blank">⬆ Повышения</a>
-      <a id="lvfm-премии" href="https://forum.sa-mp.ru/index.php?/topic/1199581-lvfm-премиальная-система/" target="_blank">💰 Премии</a>
-      <a id="lvfm-наказания" href="https://forum.sa-mp.ru/index.php?/topic/1199616-lvfm-выговоры-и-черный-список/" target="_blank">⚠ Наказания</a>
-    </div>
+<div class="tiles">
+  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-7336166','_blank')">
+    <svg viewBox="0 0 24 24"><path d="M12 2L1 7l11 5 9-4.09V17h2V7L12 2z"/></svg>
+    Правила
+  </div>
+  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-9344452','_blank')">
+    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
+    Punto Switcher
+  </div>
+  <div class="tile gradient3" onclick="window.open('https://djoniohanter.com/smi.php','_blank')">
+    <svg viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm0 4h12v2H3V7zm0 4h18v2H3v-2zm0 4h12v2H3v-2zm0 4h18v2H3v-2z"/></svg>
+    Логи объявлений
+  </div>
+</div>
 
-    <!-- LSFM -->
-    <div class="card">
-      <h2>LSFM</h2>
-      <a id="lsfm-повышения" href="https://forum.sa-mp.ru/index.php?/topic/1201622-lsfm-система-повышения📈/'" target="_blank">⬆ Повышения</a>
-      <a id="lsfm-премии" href="https://forum.sa-mp.ru/index.php?/topic/1201606-lsfm-премии💰/" target="_blank">💰 Премии</a>
-      <a id="lsfm-наказания" href="https://forum.sa-mp.ru/index.php?/topic/1201605-lsfm-выговоры-и-чс📢/'" target="_blank">⚠ Наказания</a>
-    </div>
+<div class="centers">
+  <button class="center-btn" data-center="lvfm">LVFM</button>
+  <button class="center-btn" data-center="lsfm">LSFM</button>
+  <button class="center-btn" data-center="sffm">SFFM</button>
+</div>
 
-    <!-- SFFM -->
-    <div class="card">
-      <h2>SFFM</h2>
-      <a id="sffm-повышения" href="https://forum.sa-mp.ru/index.php?/topic/1201252-sffm-система-повышения" target="_blank">⬆ Повышения</a>
-      <a id="sffm-премии" href="https://forum.sa-mp.ru/index.php?/topic/1201256-sffm-премии-для-сотрудников" target="_blank">💰 Премии</a>
-      <a id="sffm-наказания" href="https://forum.sa-mp.ru/index.php?/topic/1201259-sffm-выговоры-и-чёрный-список" target="_blank">⚠ Наказания</a>
-    </div>
-  </main>
+<div id="lvfm" class="panel">
+  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1199578-lvfm-система-повышения/','_blank')">Повышения</div>
+  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1199581-lvfm-премиальная-система/','_blank')">Премии</div>
+  <div class="tile gradient3" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1199616-lvfm-выговоры-и-черный-список/','_blank')">Наказания</div>
+</div>
 
-  <footer>
-    created with ❤️ by <a href="https://t.me/q0wqex" target="_blank">q0wqex</a>
-  </footer>
+<div id="lsfm" class="panel">
+  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201622-lsfm-система-повышения📈/','_blank')">Повышения</div>
+  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201606-lsfm-премии💰/','_blank')">Премии</div>
+  <div class="tile gradient3" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201605-lsfm-выговоры-и-чс📢/','_blank')">Наказания</div>
+</div>
 
-  <script>
-    // Тема в зависимости от устройства
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      document.body.classList.add('dark');
-    }
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-      if (e.matches) {
-        document.body.classList.add('dark');
-      } else {
-        document.body.classList.remove('dark');
-      }
+<div id="sffm" class="panel">
+  <div class="tile gradient1" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201252-sffm-система-повышения','_blank')">Повышения</div>
+  <div class="tile gradient2" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201256-sffm-премии-для-сотрудников','_blank')">Премии</div>
+  <div class="tile gradient3" onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1201259-sffm-выговоры-и-чёрный-список','_blank')">Наказания</div>
+</div>
+
+<footer>
+  <div>&copy; 2025 СМИ | Absolute RP Platinum</div>
+  <div>created with ❤️ by <a href="https://t.me/q0wqex" target="_blank">q0wqex</a></div>
+</footer>
+
+<script>
+  const centerButtons = document.querySelectorAll('.center-btn');
+  const panels = document.querySelectorAll('.panel');
+  const tiles = document.querySelectorAll('.tile');
+
+  // Анимация появления плиток
+  function showTiles(parent) {
+    const tileList = parent ? parent.querySelectorAll('.tile') : document.querySelectorAll('.tiles .tile');
+    tileList.forEach((tile,i) => {
+      setTimeout(()=>tile.classList.add('show'), i*100);
     });
+  }
+  showTiles(); // первые общие плитки
 
-    // Редирект по хешу
-    document.addEventListener("DOMContentLoaded", () => {
-      const hash = decodeURIComponent(window.location.hash.substring(1));
-      if (hash) {
-        const link = document.getElementById(hash);
-        if (link) {
-          window.location.href = link.href;
-        }
-      }
+  // Переключение радиоцентров с анимацией
+  centerButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      centerButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const target = btn.dataset.center;
+      panels.forEach(p => p.classList.remove('active'));
+      const panel = document.getElementById(target);
+      panel.classList.add('active');
+      panel.querySelectorAll('.tile').forEach(t => t.classList.remove('show'));
+      setTimeout(()=>showTiles(panel), 50);
     });
-  </script>
+  });
+</script>
+
 </body>
 </html>
