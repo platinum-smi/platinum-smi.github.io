@@ -36,7 +36,7 @@
         out.style.marginTop = "12px";
         out.style.fontSize = "18px";
         out.style.fontWeight = "bold";
-        out.style.color = "#818181ff";
+        out.style.color = "#656360";
         out.textContent = `Всего объявлений за день: ${total}`;
 
         targetHeader.insertAdjacentElement("afterend", out);
