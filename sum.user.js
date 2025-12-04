@@ -3,6 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  Подсчет объявлений за день
+// @author       q0wqex
 // @match        https://djoniohanter.com/smi.php*
 // @grant        none
 // ==/UserScript==
