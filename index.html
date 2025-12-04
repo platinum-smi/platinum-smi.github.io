@@ -4,6 +4,12 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>СМИ Навигатор</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <style>
+  .fa-brands {
+    font-size: 3em; /* Увеличивает размер иконок в 2 раза */
+  }
+</style>
         <style>
             body {
                 margin: 0;
@@ -215,6 +221,19 @@
                 }
             }
         </style>
+        <style>
+.sr-only {
+ position: absolute;
+ width: 1px;
+ height: 1px;
+ padding: 0;
+ margin: -1px;
+ overflow: hidden;
+ clip: rect(0, 0, 0, 0);
+ white-space: nowrap;
+ border-width: 0;
+}
+</style>
     </head>
     <body>
         <h1>СМИ Навигатор</h1>
@@ -304,6 +323,26 @@
         <div id="sffm" class="panel">
             <div class="tile gradient1">Никто не обращался за поддержкой</div>
         </div>
+        <h2>Для лидеров</h2>
+        <section style="text-align: center;">
+    <details>
+    <summary>Скрипт для посчета</summary>
+    <div>
+        <p>Для использования скрипта необходимо установить расширение Tampermonkey:</p>
+        
+        <a href="https://chromewebstore.google.com/detail/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank" rel="noopener noreferrer" style="margin-right: 15px;"><i class="fa-brands fa-chrome" aria-hidden="true" style="color: white;"></i><span class="sr-only">Chrome</span></a>
+        <a href="https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/" target="_blank" rel="noopener noreferrer" style="margin-right: 15px;"><i class="fa-brands fa-firefox" aria-hidden="true" style="color: white;"></i><span class="sr-only">Firefox</span></a>
+        <a href="https://microsoftedge.microsoft.com/addons/detail/iikmkjmpaadaobahmlepeloendndfphd" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-edge" aria-hidden="true" style="color: white;"></i><span class="sr-only">Edge</span></a>
+        
+        <p>После установки расширения нажмите на кнопку ниже для установки скрипта:</p>
+        <div>
+            <button onclick="window.location.href='https://github.com/platinum-smi/platinum-smi.github.io/raw/refs/heads/main/sum.user.js';">
+                <i class="fas fa-download"></i> Установить скрипт
+            </button>
+        </div>
+    </details>
+</section>
+
 
         <footer>
             <div>&copy; 2025 СМИ | Absolute RP Platinum</div>
