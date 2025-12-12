@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Подсчет объявлений за день
 // @namespace    http://tampermonkey.net/
-// @version      2.0
+// @version      2.1
 // @description  Подсчет объявлений за день и диапазон дат
 // @author       q0wqex
 // @match        https://djoniohanter.com/smi.php*
@@ -124,7 +124,7 @@
     }
 
     // Функция для подсчета объявлений в диапазоне дат
-    async function countRange(from, to) {
+    async function countRange(from, to, obki = 8) {
         try {
             // Преобразуем строки дат в объекты Date
             const startDate = new Date(from);
@@ -142,9 +142,9 @@
                 const m = current.getMonth() + 1;
                 const y = current.getFullYear();
 
-                const count = await getDayCount(d, m, y);
+                const count = await getDayCount(d, m, y, obki);
 
-                console.log(`${utils.padNumber(d, 2)}.${utils.padNumber(m, 2)}.${y}: ${count}`);
+                console.log(`${utils.padNumber(d, 2)}.${utils.padNumber(m, 2)}.${y} (obki: ${obki}): ${count}`);
 
                 totalAll += count;
 
@@ -281,8 +281,15 @@
                 clonedButton.disabled = true;
                 
                 try {
-                    // Вызываем функцию подсчета диапазона
-                    const total = await countRange(startDateStr, endDateStr);
+                    // Получаем значение из select элемента с id="form_obki_wr"
+                    const selectElement = document.getElementById('form_obki_wr');
+                    let obkiValue = 8; // значение по умолчанию
+                    if (selectElement) {
+                        obkiValue = selectElement.value;
+                    }
+
+                    // Вызываем функцию подсчета диапазона с учетом obkiValue
+                    const total = await countRange(startDateStr, endDateStr, obkiValue);
                     
                     // Отображаем результат в элементе out
                     out.textContent = `Всего объявлений за период с ${startDateStr} по ${endDateStr}: ${total}`;
