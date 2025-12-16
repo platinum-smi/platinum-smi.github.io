@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Подсчет объявлений djoniohanter.com/smi
 // @namespace    http://tampermonkey.net/
-// @version      2.2
+// @version      2.2.1
 // @description  Подсчет объявлений по дням и диапазонам
 // @author       q0wqex
 // @match        https://djoniohanter.com/smi.php*
@@ -113,10 +113,18 @@
             // Парсим HTML в виртуальный DOM
             const doc = new DOMParser().parseFromString(html, "text/html");
 
-            // Ищем все строки "Количество объявлений: N"
-            const text = doc.body.innerText;
-            
-            return utils.calculateTotal(text, new RegExp(CONFIG.dateRegex.source, 'g'));
+            // Ищем все элементы <p> с классом 'employee-count'
+            const employeeCountParagraphs = doc.querySelectorAll('p.employee-count');
+            let total = 0;
+
+            employeeCountParagraphs.forEach(p => {
+                const paragraphText = p.innerText;
+                // Проверяем, содержит ли текст параграфа нужную фразу "Количество объявлений:"
+                if (paragraphText.includes('Количество объявлений:')) {
+                    total += utils.calculateTotal(paragraphText, new RegExp(CONFIG.dateRegex.source, 'g'));
+                }
+            });
+            return total;
         } catch (error) {
             console.error(`Ошибка при получении количества объявлений за ${day}.${month}.${year}:`, error);
             throw error;
