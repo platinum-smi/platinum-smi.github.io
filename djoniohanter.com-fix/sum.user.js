@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Подсчет объявлений за день
+// @name         Подсчет объявлений djoniohanter.com/smi
 // @namespace    http://tampermonkey.net/
-// @version      2.1
-// @description  Подсчет объявлений за день и диапазон дат
+// @version      2.2
+// @description  Подсчет объявлений по дням и диапазонам
 // @author       q0wqex
 // @match        https://djoniohanter.com/smi.php*
 // @grant        none
@@ -136,20 +136,37 @@
 
             let current = startDate;
             let totalAll = 0;
+            
+            // Массивы для хранения промисов и дат для логирования
+            const dailyCountsPromises = [];
+            const datesForLogging = [];
 
             while (current <= endDate) {
                 const d = current.getDate();
                 const m = current.getMonth() + 1;
                 const y = current.getFullYear();
 
-                const count = await getDayCount(d, m, y, obki);
+                // Сохраняем дату для последующего логирования
+                datesForLogging.push({ d, m, y });
 
-                console.log(`${utils.padNumber(d, 2)}.${utils.padNumber(m, 2)}.${y} (obki: ${obki}): ${count}`);
-
-                totalAll += count;
+                // Добавляем промис в массив
+                dailyCountsPromises.push(getDayCount(d, m, y, obki));
 
                 // Следующий день
                 current.setDate(current.getDate() + 1);
+            }
+
+            // Ждем выполнения всех промисов параллельно
+            const counts = await Promise.all(dailyCountsPromises);
+
+            // Логируем результаты и суммируем
+            for (let i = 0; i < counts.length; i++) {
+                const { d, m, y } = datesForLogging[i];
+                const count = counts[i];
+                
+                console.log(`${utils.padNumber(d, 2)}.${utils.padNumber(m, 2)}.${y} (obki: ${obki}): ${count}`);
+                
+                totalAll += count;
             }
 
             console.log("================================");
