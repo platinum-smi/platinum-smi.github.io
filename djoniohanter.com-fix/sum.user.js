@@ -87,7 +87,10 @@
 
     // Функция для получения количества объявлений за конкретный день
     async function getDayCount(day, month, year, obki = 8) {
+        console.log(`Начало запроса для даты: ${utils.padNumber(day, 2)}.${utils.padNumber(month, 2)}.${year}, obki: ${obki}`);
+        
         try {
+            const startTime = performance.now();
             const payload = new URLSearchParams({
                 search_platinum: "",
                 day: utils.padNumber(day, 2),
@@ -96,6 +99,8 @@
                 obki_wr: obki.toString()
             });
 
+            console.log(`Отправка запроса для даты: ${utils.padNumber(day, 2)}.${utils.padNumber(month, 2)}.${year}, payload: ${payload.toString()}`);
+            
             const response = await fetch("https://djoniohanter.com/smi.php", {
                 method: "POST",
                 headers: {
@@ -104,11 +109,20 @@
                 body: payload.toString()
             });
 
+            const endTime = performance.now();
+            const duration = endTime - startTime;
+            
+            console.log(`Request to https://djoniohanter.com/smi.php for ${utils.padNumber(day, 2)}.${utils.padNumber(month, 2)}.${year} completed in ${duration.toFixed(2)}ms`);
+            
+            console.log(`Получен ответ для даты: ${utils.padNumber(day, 2)}.${utils.padNumber(month, 2)}.${year}, статус: ${response.status}`);
+            
             if (!response.ok) {
+                console.log(`Ошибка HTTP для даты: ${utils.padNumber(day, 2)}.${utils.padNumber(month, 2)}.${year}, статус: ${response.status}`);
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
             const html = await response.text();
+            console.log(`Получен HTML-ответ для даты: ${utils.padNumber(day, 2)}.${utils.padNumber(month, 2)}.${year}, длина: ${html.length}`);
 
             // Парсим HTML в виртуальный DOM
             const doc = new DOMParser().parseFromString(html, "text/html");
@@ -119,16 +133,46 @@
 
             employeeCountParagraphs.forEach(p => {
                 const paragraphText = p.innerText;
-                // Проверяем, содержит ли текст параграфа нужную фразу "Количество объявлений:"
-                if (paragraphText.includes('Количество объявлений:')) {
-                    total += utils.calculateTotal(paragraphText, new RegExp(CONFIG.dateRegex.source, 'g'));
-                }
+                total += utils.calculateTotal(paragraphText, new RegExp(CONFIG.dateRegex.source, 'g'));
             });
+            
+            console.log(`Завершение запроса для даты: ${utils.padNumber(day, 2)}.${utils.padNumber(month, 2)}.${year}, результат: ${total}`);
             return total;
         } catch (error) {
-            console.error(`Ошибка при получении количества объявлений за ${day}.${month}.${year}:`, error);
+            console.error(`Ошибка при получении количества объявлений за ${utils.padNumber(day, 2)}.${utils.padNumber(month, 2)}.${year}:`, error);
             throw error;
         }
+    }
+
+    // Функция для ограничения количества параллельных запросов
+    async function processPromisesWithLimit(promiseFactories, limit) {
+        const results = [];
+        const runningPromises = [];
+
+        for (const promiseFactory of promiseFactories) {
+            const p = promiseFactory(); // Создаем промис
+            runningPromises.push(p);
+            p.then(result => {
+                results.push(result);
+                const index = runningPromises.indexOf(p);
+                if (index !== -1) {
+                    runningPromises.splice(index, 1); // Удаляем завершенный промис
+                }
+            }).catch(error => {
+                results.push(Promise.reject(error)); // Обрабатываем ошибки
+                const index = runningPromises.indexOf(p);
+                if (index !== -1) {
+                    runningPromises.splice(index, 1); // Удаляем завершенный промис
+                }
+            });
+
+            if (runningPromises.length >= limit) {
+                await Promise.race(runningPromises); // Ждем завершения любого из текущих промисов
+            }
+        }
+
+        await Promise.all(runningPromises); // Ждем завершения всех оставшихся промисов
+        return results;
     }
 
     // Функция для подсчета объявлений в диапазоне дат
@@ -145,10 +189,12 @@
             let current = startDate;
             let totalAll = 0;
             
-            // Массивы для хранения промисов и дат для логирования
-            const dailyCountsPromises = [];
+            // Массивы для хранения фабрик промисов и дат для логирования
+            const promiseFactories = [];
             const datesForLogging = [];
 
+            console.log(`Начало обработки диапазона дат: ${from} - ${to}, obki: ${obki}`);
+            
             while (current <= endDate) {
                 const d = current.getDate();
                 const m = current.getMonth() + 1;
@@ -157,15 +203,20 @@
                 // Сохраняем дату для последующего логирования
                 datesForLogging.push({ d, m, y });
 
-                // Добавляем промис в массив
-                dailyCountsPromises.push(getDayCount(d, m, y, obki));
+                // Добавляем фабрику промиса в массив
+                console.log(`Создание фабрики промиса для даты: ${utils.padNumber(d, 2)}.${utils.padNumber(m, 2)}.${y}`);
+                promiseFactories.push(() => getDayCount(d, m, y, obki));
 
                 // Следующий день
                 current.setDate(current.getDate() + 1);
             }
+            
+            console.log(`Общее количество фабрик промисов для выполнения с ограничением: ${promiseFactories.length}`);
 
-            // Ждем выполнения всех промисов параллельно
-            const counts = await Promise.all(dailyCountsPromises);
+            // Ждем выполнения промисов с ограничением на количество одновременных запросов
+            console.log('Начало выполнения промисов с ограничением на 2 параллельных запроса...');
+            const counts = await processPromisesWithLimit(promiseFactories, 2);
+            console.log('Завершено выполнение всех промисов с ограничением');
 
             // Логируем результаты и суммируем
             for (let i = 0; i < counts.length; i++) {
@@ -200,9 +251,14 @@
             if (!targetHeader) return;
 
             const container = targetHeader.parentElement;
-            const text = container.innerText;
-
-            const total = utils.calculateTotal(text, new RegExp(CONFIG.dateRegex.source, 'g'));
+            let total = 0;
+            if (container) {
+                const employeeCountParagraphs = container.querySelectorAll('p.employee-count');
+                employeeCountParagraphs.forEach(p => {
+                    const paragraphText = p.innerText;
+                    total += utils.calculateTotal(paragraphText, new RegExp(CONFIG.dateRegex.source, 'g'));
+                });
+            }
 
             const out = utils.createElement('div', {
                 styles: {
@@ -313,11 +369,15 @@
                         obkiValue = selectElement.value;
                     }
 
+                    console.log(`Начало подсчета диапазона с ${startDateStr} по ${endDateStr}, obki: ${obkiValue}`);
+                    
                     // Вызываем функцию подсчета диапазона с учетом obkiValue
                     const total = await countRange(startDateStr, endDateStr, obkiValue);
                     
                     // Отображаем результат в элементе out
                     out.textContent = `Всего объявлений за период с ${startDateStr} по ${endDateStr}: ${total}`;
+                    
+                    console.log(`Завершение подсчета диапазона, итоговый результат: ${total}`);
                 } catch (error) {
                     console.error('Ошибка при подсчете объявлений:', error);
                     out.textContent = `Ошибка при подсчете объявлений: ${error.message}`;
