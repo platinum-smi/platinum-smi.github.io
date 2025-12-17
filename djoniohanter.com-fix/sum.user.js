@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         Счетчик объявлений SMI Platinum RP
+// @name         Подсчет объявлений за день
 // @namespace    http://tampermonkey.net/
-// @version      2.2.1
+// @version      3.0
 // @description  Подсчет объявлений по дням и диапазонам
 // @author       q0wqex
 // @match        https://djoniohanter.com/smi.php*
