@@ -1,471 +1,231 @@
 <!doctype html>
 <html lang="ru">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>СМИ Навигатор</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <style>
-  .fa-brands {
-    font-size: 3em; /* Увеличивает размер иконок в 2 раза */
-  }
-</style>
-        <style>
-            html, body {
-                overflow-x: hidden;
-            }
-            body {
-                margin: 0;
-                font-family: "Century Gothic", sans-serif;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                min-height: 100vh;
-                background: #f5f5f5;
-                color: #222;
-                transition:
-                    background 0.3s,
-                    color 0.3s;
-            }
 
-            :root {
-                --gradient-start: #00bfff;
-                --gradient-end: #9b59b6;
-                --gradient-direction: 90deg;
-            }
-            
-            h1 {
-                margin-top: 50px;
-                font-size: 2.5em;
-                background: linear-gradient(var(--gradient-direction), var(--gradient-start), var(--gradient-end));
-                background-clip: text;
-                -webkit-background-clip: text;
-                color: transparent;
-                -webkit-text-fill-color: transparent;
-                text-align: center;
-            }
-            
-            .gradient-text {
-                background: linear-gradient(var(--gradient-direction), var(--gradient-start), var(--gradient-end));
-                background-clip: text;
-                -webkit-background-clip: text;
-                color: transparent;
-                -webkit-text-fill-color: transparent;
-            }
-            p {
-                color: #555;
-                margin: 15px 0 40px 0;
-                text-align: center;
-                max-width: 600px;
-                font-size: 1.1em;
-            }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>СМИ Навигатор</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="assets/common.css">
+</head>
 
-            @media (prefers-color-scheme: dark) {
-                body {
-                    background: #111;
-                    color: #f0f0f0;
-                }
-                .tile {
-                    background: #222;
-                    color: #f0f0f0;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-                }
-                footer {
-                    background: #111;
-                    color: #888;
-                }
-                .center-btn {
-                    background: #222;
-                    color: #f0f0f0;
-                }
-                .center-btn.active,
-                .center-btn:hover {
-                    background: #00bfff;
-                    color: #111;
-                }
-            }
+<body>
+  <h1>СМИ Навигатор</h1>
+  <p>
+    Общие ресурсы доступны сразу. Выберите радиоцентр, чтобы увидеть
+    уникальные кнопки.
+  </p>
 
-            .tiles {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 20px;
-                justify-content: center;
-                margin-bottom: 40px;
-            }
-            .tile {
-                border-radius: 12px;
-                min-width: 160px;
-                width: 180px;
-                min-height: 100px;
-                padding: 12px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                font-weight: bold;
-                cursor: pointer;
-                font-size: 1em;
-                line-height: 1.3;
-                word-wrap: break-word;
-                white-space: normal;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-                background: white;
-                color: #222;
-                opacity: 0;
-                transform: translateY(20px);
-                transition: 0.5s all;
-            }
-            .tile.show {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            .tile:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            }
-            .gradient1 {
-                background: linear-gradient(135deg, #00bfff, #9b59b6);
-                color: #fff;
-            }
-            .gradient2 {
-                background: linear-gradient(135deg, #ff6b6b, #f7d794);
-                color: #fff;
-            }
-            .gradient3 {
-                background: linear-gradient(135deg, #2ed573, #1e90ff);
-                color: #fff;
-            }
-            .gradient-vk {
-                background: linear-gradient(135deg, #4a76a8, #2a5885);
-                color: #fff;
-            }
+  <div class="tiles">
+    <div class="tile gradient1"
+      onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-7336166','_blank')"
+      data-href="https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-7336166"
+      data-hash="правила">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2L1 7l11 5 9-4.09V17h2V7L12 2z" />
+      </svg>
+      Правила
+    </div>
+    <div class="tile gradient2"
+      onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-9344452','_blank')"
+      data-href="https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-9344452"
+      data-hash="punto">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm1 15h-2v-6h2zm0-8h-2V7h2z" />
+      </svg>
+      Punto Switcher
+    </div>
+    <div class="tile gradient3" onclick="window.open('https://djoniohanter.com/smi.php','_blank')"
+      data-href="https://djoniohanter.com/smi.php" data-hash="логи">
+      <svg viewBox="0 0 24 24">
+        <path d="M3 3h18v2H3V3zm0 4h12v2H3V7zm0 4h18v2H3v-2zm0 4h12v2H3v-2zm0 4h18v2H3v-2z" />
+      </svg>
+      Логи объявлений
+    </div>
+  </div>
 
-            .tile svg {
-                width: 32px;
-                height: 32px;
-                margin-bottom: 8px;
-                fill: currentColor;
-            }
+  <div class="centers">
+    <button class="center-btn" data-center="lvfm">LVFM</button>
+    <button class="center-btn" data-center="lsfm">LSFM</button>
+    <button class="center-btn" data-center="sffm">SFFM</button>
+  </div>
 
-            .centers {
-                display: flex;
-                gap: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
-                margin-bottom: 30px;
-            }
-            .center-btn {
-                padding: 12px 25px;
-                background: #eee;
-                border: none;
-                border-radius: 8px;
-                color: #222;
-                font-weight: bold;
-                cursor: pointer;
-                transition:
-                    0.3s,
-                    transform 0.2s;
-            }
-            .center-btn:hover,
-            .center-btn.active {
-                background: #00bfff;
-                color: #fff;
-                transform: scale(1.05);
-            }
 
-            .panel {
-                display: none;
-                flex-wrap: wrap;
-                gap: 20px;
-                justify-content: center;
-                margin-bottom: 50px;
-            }
-            .panel.active {
-                display: flex;
-            }
+  <div id="lvfm" class="panel">
+    <div class="tile gradient-vk"
+      onclick="window.open('https://vk.me/join/1VMbWz9mwc/sFgmIZRot2weH2oz7ymGAFyQ=','_blank')">
+      Беседа ВК
+    </div>
+    <div class="tile gradient1"
+      onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1204836-lvfm-🥔-система-повышения/','_blank')"
+      data-href="https://forum.sa-mp.ru/index.php?/topic/1204836-lvfm-🥔-система-повышения/" data-hash="lvfm-повышения">
+      Повышения</div>
+    <div class="tile gradient2"
+      onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1204837-lvfm-🥔-премиальная-система/','_blank')"
+      data-href="https://forum.sa-mp.ru/index.php?/topic/1204837-lvfm-🥔-премиальная-система/" data-hash="lvfm-премии">
+      Премии</div>
+    <div class="tile gradient3"
+      onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1204840-lvfm-🥔-выговоры-и-черный-список/','_blank')"
+      data-href="https://forum.sa-mp.ru/index.php?/topic/1204840-lvfm-🥔-выговоры-и-черный-список/"
+      data-hash="lvfm-наказания">Наказания</div>
+  </div>
 
-            footer {
-                box-sizing: border-box;
-                margin-top: auto;
-                padding: 20px;
-                text-align: center;
-                width: 100%;
-            }
-            footer div {
-                margin-top: 5px;
-                font-size: 0.9em;
-            }
-            footer a {
-                color: #00bfff;
-                text-decoration: none;
-            }
-            footer a:hover {
-                text-decoration: underline;
-            }
+  <div id="lsfm" class="panel">
+    <div class="tile gradient1">Никто не обращался за поддержкой</div>
+  </div>
 
-            .highlight {
-                box-shadow: 0 0 15px 4px #ffd700 !important;
-            }
-
-            @media (max-width: 600px) {
-                .tiles,
-                .panel,
-                .centers {
-                    flex-direction: column;
-                    align-items: center;
-                }
-                .tile {
-                    width: 90%;
-                    max-width: 400px;
-                    min-height: auto;
-                    height: auto;
-                    padding: 16px;
-                    font-size: 1.1em;
-                }
-            }
-        </style>
-        <style>
-.sr-only {
- position: absolute;
- width: 1px;
- height: 1px;
- padding: 0;
- margin: -1px;
- overflow: hidden;
- clip: rect(0, 0, 0, 0);
- white-space: nowrap;
- border-width: 0;
-}
-</style>
-    </head>
-    <body>
-        <h1>СМИ Навигатор</h1>
-        <p>
-            Общие ресурсы доступны сразу. Выберите радиоцентр, чтобы увидеть
-            уникальные кнопки.
-        </p>
-
-        <div class="tiles">
-            <div
-                class="tile gradient1"
-                onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-7336166','_blank')"
-                data-href="https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-7336166"
-                data-hash="правила"
-            >
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 2L1 7l11 5 9-4.09V17h2V7L12 2z" />
-                </svg>
-                Правила
-            </div>
-            <div
-                class="tile gradient2"
-                onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-9344452','_blank')"
-                data-href="https://forum.sa-mp.ru/index.php?/topic/884226-сми-главный-справочник/#findComment-9344452"
-                data-hash="punto"
-            >
-                <svg viewBox="0 0 24 24">
-                    <path
-                        d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm1 15h-2v-6h2zm0-8h-2V7h2z"
-                    />
-                </svg>
-                Punto Switcher
-            </div>
-            <div
-                class="tile gradient3"
-                onclick="window.open('https://djoniohanter.com/smi.php','_blank')"
-                data-href="https://djoniohanter.com/smi.php"
-                data-hash="логи"
-            >
-                <svg viewBox="0 0 24 24">
-                    <path
-                        d="M3 3h18v2H3V3zm0 4h12v2H3V7zm0 4h18v2H3v-2zm0 4h12v2H3v-2zm0 4h18v2H3v-2z"
-                    />
-                </svg>
-                Логи объявлений
-            </div>
-        </div>
-
-        <div class="centers">
-            <button class="center-btn" data-center="lvfm">LVFM</button>
-            <button class="center-btn" data-center="lsfm">LSFM</button>
-            <button class="center-btn" data-center="sffm">SFFM</button>
-        </div>
-        
-
-                <div id="lvfm" class="panel">
-            <div
-                class="tile gradient-vk"
-                onclick="window.open('https://vk.me/join/1VMbWz9mwc/sFgmIZRot2weH2oz7ymGAFyQ=','_blank')"
-            >
-                Беседа ВК
-            </div>
-            <div
-                class="tile gradient1"
-                onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1204836-lvfm-🥔-система-повышения/','_blank')"
-                data-href="https://forum.sa-mp.ru/index.php?/topic/1204836-lvfm-🥔-система-повышения/"
-                data-hash="lvfm-повышения"
-            >Повышения</div>
-            <div
-                class="tile gradient2"
-                onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1204837-lvfm-🥔-премиальная-система/','_blank')"
-                data-href="https://forum.sa-mp.ru/index.php?/topic/1204837-lvfm-🥔-премиальная-система/"
-                data-hash="lvfm-премии"
-            >Премии</div>
-            <div
-                class="tile gradient3"
-                onclick="window.open('https://forum.sa-mp.ru/index.php?/topic/1204840-lvfm-🥔-выговоры-и-черный-список/','_blank')"
-                data-href="https://forum.sa-mp.ru/index.php?/topic/1204840-lvfm-🥔-выговоры-и-черный-список/"
-                data-hash="lvfm-наказания"
-            >Наказания</div>
-        </div>
-
-        <div id="lsfm" class="panel">
-            <div class="tile gradient1">Никто не обращался за поддержкой</div>
-        </div>
-
-        <div id="sffm" class="panel">
-            <div class="tile gradient1">Никто не обращался за поддержкой</div>
-        </div>
-        <h2>Для лидеров</h2>
-        <section style="text-align: center;">
+  <div id="sffm" class="panel">
+    <div class="tile gradient1">Никто не обращался за поддержкой</div>
+  </div>
+  <h2>Для лидеров</h2>
+  <section style="text-align: center;">
     <details>
-    <summary>Скрипт для посчета</summary>
-    <div>
+      <summary>Скрипт для посчета</summary>
+      <div>
         <p>Для использования скрипта необходимо установить расширение Tampermonkey:</p>
-        
-        <a href="https://chromewebstore.google.com/detail/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank" rel="noopener noreferrer" style="margin-right: 15px;"><i class="fa-brands fa-chrome" aria-hidden="true" style="color: rgb(129, 129, 129);"></i><span class="sr-only">Chrome</span></a>
-        <a href="https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/" target="_blank" rel="noopener noreferrer" style="margin-right: 15px;"><i class="fa-brands fa-firefox" aria-hidden="true" style="color: rgb(129, 129, 129)"></i><span class="sr-only">Firefox</span></a>
-        <a href="https://microsoftedge.microsoft.com/addons/detail/iikmkjmpaadaobahmlepeloendndfphd" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-edge" aria-hidden="true" style="color: rgb(129, 129, 129)"></i><span class="sr-only">Edge</span></a>
-        
+
+        <a href="https://chromewebstore.google.com/detail/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank"
+          rel="noopener noreferrer" style="margin-right: 15px;"><i class="fa-brands fa-chrome" aria-hidden="true"
+            style="color: rgb(129, 129, 129);"></i><span class="sr-only">Chrome</span></a>
+        <a href="https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/" target="_blank" rel="noopener noreferrer"
+          style="margin-right: 15px;"><i class="fa-brands fa-firefox" aria-hidden="true"
+            style="color: rgb(129, 129, 129)"></i><span class="sr-only">Firefox</span></a>
+        <a href="https://microsoftedge.microsoft.com/addons/detail/iikmkjmpaadaobahmlepeloendndfphd" target="_blank"
+          rel="noopener noreferrer"><i class="fa-brands fa-edge" aria-hidden="true"
+            style="color: rgb(129, 129, 129)"></i><span class="sr-only">Edge</span></a>
+
         <p>После установки расширения нажмите на кнопку ниже для установки скрипта:</p>
         <div>
-            <button onclick="window.location.href='https://github.com/platinum-smi/platinum-smi.github.io/raw/refs/heads/main/djoniohanter.com-fix/sum.user.js';">
-                <i class="fas fa-download"></i> Установить скрипт
-            </button>
+          <button
+            onclick="window.location.href='https://github.com/platinum-smi/platinum-smi.github.io/raw/refs/heads/main/djoniohanter.com-fix/sum.user.js';">
+            <i class="fas fa-download"></i> Установить скрипт
+          </button>
         </div>
     </details>
-</section>
+  </section>
 
 
-        <footer>
-            <div>&copy; 2025 СМИ | Absolute RP Platinum</div>
-            <div>
-                created with ❤️ by
-                <a href="https://t.me/q0wqex" target="_blank">q0wqex</a>
-            </div>
-        </footer>
+  <footer>
+    <div>&copy; 2025 СМИ | Absolute RP Platinum</div>
+    <div>
+      created with ❤️ by
+      <a href="https://t.me/q0wqex" target="_blank">q0wqex</a>
+    </div>
+  </footer>
 
-        <script>
-            const centerButtons = document.querySelectorAll(".center-btn");
-            const panels = document.querySelectorAll(".panel");
-            const tiles = document.querySelectorAll(".tile");
+  <script>
+    const centerButtons = document.querySelectorAll(".center-btn");
+    const panels = document.querySelectorAll(".panel");
+    const tiles = document.querySelectorAll(".tile");
 
-            // Анимация появления плиток
-            function showTiles(parent) {
-                const tileList = parent
-                    ? parent.querySelectorAll(".tile")
-                    : document.querySelectorAll(".tiles .tile");
-                tileList.forEach((tile, i) => {
-                    setTimeout(() => tile.classList.add("show"), i * 100);
-                });
-            }
-            showTiles(); // первые общие плитки
+    // Анимация появления плиток
+    function showTiles(parent) {
+      const tileList = parent
+        ? parent.querySelectorAll(".tile")
+        : document.querySelectorAll(".tiles .tile");
+      tileList.forEach((tile, i) => {
+        setTimeout(() => tile.classList.add("show"), i * 100);
+      });
+    }
+    showTiles(); // первые общие плитки
 
-            // Переключение радиоцентров с анимацией
-            centerButtons.forEach((btn) => {
-                btn.addEventListener("click", () => {
-                    centerButtons.forEach((b) => b.classList.remove("active"));
-                    btn.classList.add("active");
-                    const target = btn.dataset.center;
-                    panels.forEach((p) => p.classList.remove("active"));
-                    const panel = document.getElementById(target);
-                    panel.classList.add("active");
-                    panel
-                        .querySelectorAll(".tile")
-                        .forEach((t) => t.classList.remove("show"));
-                    setTimeout(() => showTiles(panel), 50);
-                });
-            });
+    // Переключение радиоцентров с анимацией
+    centerButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        centerButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const target = btn.dataset.center;
+        panels.forEach((p) => p.classList.remove("active"));
+        const panel = document.getElementById(target);
+        panel.classList.add("active");
+        panel
+          .querySelectorAll(".tile")
+          .forEach((t) => t.classList.remove("show"));
+        setTimeout(() => showTiles(panel), 50);
+      });
+    });
 
-            // --- Обработка хеша: подсветка или редирект при ключе ?go или ?redirect=1 ---
-            (function () {
-                function extractHashAndParams() {
-                    const raw = decodeURIComponent(
-                        window.location.hash.substring(1) || "",
-                    );
-                    if (!raw) return { id: "", params: "" };
-                    const [idPart, paramPart] = raw.split("?", 2);
-                    return { id: idPart || "", params: paramPart || "" };
-                }
+    // --- Обработка хеша: подсветка или редирект при ключе ?go или ?redirect=1 ---
+    (function () {
+      function extractHashAndParams() {
+        const raw = decodeURIComponent(
+          window.location.hash.substring(1) || "",
+        );
+        if (!raw) return { id: "", params: "" };
+        const [idPart, paramPart] = raw.split("?", 2);
+        return { id: idPart || "", params: paramPart || "" };
+      }
 
-                function parseParams(paramString) {
-                    const params = {};
-                    if (!paramString) return params;
-                    paramString.split("&").forEach((pair) => {
-                        const [k, v = ""] = pair.split("=");
-                        params[k.toLowerCase()] = v;
-                    });
-                    return params;
-                }
+      function parseParams(paramString) {
+        const params = {};
+        if (!paramString) return params;
+        paramString.split("&").forEach((pair) => {
+          const [k, v = ""] = pair.split("=");
+          params[k.toLowerCase()] = v;
+        });
+        return params;
+      }
 
-                function getTileUrl(tile) {
-                    const dh = tile.getAttribute("data-href");
-                    if (dh) return dh;
-                    const onclick = tile.getAttribute("onclick") || "";
-                    const m = onclick.match(
-                        /window\.open\(\s*['"]([^'"]+)['"]/i,
-                    );
-                    if (m && m[1]) return m[1];
-                    return null;
-                }
+      function getTileUrl(tile) {
+        const dh = tile.getAttribute("data-href");
+        if (dh) return dh;
+        const onclick = tile.getAttribute("onclick") || "";
+        const m = onclick.match(
+          /window\.open\(\s*['"]([^'"]+)['"]/i,
+        );
+        if (m && m[1]) return m[1];
+        return null;
+      }
 
-                document.addEventListener("DOMContentLoaded", () => {
-                    const { id, params } = extractHashAndParams();
-                    if (!id) return;
+      document.addEventListener("DOMContentLoaded", () => {
+        const { id, params } = extractHashAndParams();
+        if (!id) return;
 
-                    const parsed = parseParams(params);
-                    const shouldRedirect = "go" in parsed;
+        const parsed = parseParams(params);
+        const shouldRedirect = "go" in parsed;
 
-                    const tilesAll = Array.from(
-                        document.querySelectorAll(".tile"),
-                    );
-                    const targetTile = tilesAll.find((t) => {
-                        const th = (t.dataset.hash || "")
-                            .toString()
-                            .toLowerCase();
-                        return th === id.toLowerCase();
-                    });
+        const tilesAll = Array.from(
+          document.querySelectorAll(".tile"),
+        );
+        const targetTile = tilesAll.find((t) => {
+          const th = (t.dataset.hash || "")
+            .toString()
+            .toLowerCase();
+          return th === id.toLowerCase();
+        });
 
-                    if (!targetTile) return;
+        if (!targetTile) return;
 
-                    const parentPanel = targetTile.closest(".panel");
-                    if (parentPanel) {
-                        const centerId = parentPanel.id;
-                        const btn = document.querySelector(
-                            `.center-btn[data-center="${centerId}"]`,
-                        );
-                        if (btn) btn.click();
-                    }
+        const parentPanel = targetTile.closest(".panel");
+        if (parentPanel) {
+          const centerId = parentPanel.id;
+          const btn = document.querySelector(
+            `.center-btn[data-center="${centerId}"]`,
+          );
+          if (btn) btn.click();
+        }
 
-                    if (shouldRedirect) {
-                        const url = getTileUrl(targetTile);
-                        if (url)
-                            setTimeout(() => {
-                                window.location.href = url;
-                            }, 150);
-                        return;
-                    }
+        if (shouldRedirect) {
+          const url = getTileUrl(targetTile);
+          if (url)
+            setTimeout(() => {
+              window.location.href = url;
+            }, 150);
+          return;
+        }
 
-                    targetTile.classList.add("highlight");
-                    setTimeout(
-                        () => targetTile.classList.remove("highlight"),
-                        10000,
-                    );
-                });
-            })();
+        targetTile.classList.add("highlight");
+        setTimeout(
+          () => targetTile.classList.remove("highlight"),
+          10000,
+        );
+      });
+    })();
 
-            
-        </script>
-    </body>
+
+  </script>
+</body>
+
 </html>
